@@ -1,0 +1,5 @@
+join-firework:
+    # Delay in milliseconds
+    delay: 1000
+    #TODO
+    check-permission: false
