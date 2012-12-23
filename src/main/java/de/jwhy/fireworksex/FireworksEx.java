@@ -1,10 +1,7 @@
 package de.jwhy.fireworksex;
 
 import java.io.File;
-import java.util.Map;
-
 import org.bukkit.command.Command;
-import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -22,19 +19,19 @@ public class FireworksEx extends JavaPlugin implements Listener {
     	
     }
 
-    public void onEnable() {
-        this.fm = new FireworkManager(this, config);
-        
-        //Register events
-        Map<String, Map<String, Object>> commands = this.getDescription().getCommands();
-        //commands.
-        getServer().getPluginManager().registerEvents((Listener) this.fm, this);
-
+    public void onEnable() {      
         //Prepare configuration
     	this.config = new YamlConfiguration();
         this.configFile = new File(getDataFolder(), "config.yml");
         FireworksExUtils.runFirstSetup(this, configFile);
         FireworksExUtils.loadConfigs(configFile, config);
+        
+        //Initialize FireworkManager instance
+        this.fm = new FireworkManager(this, config);
+        
+        //Register events
+        	//Map<String, Map<String, Object>> commands = this.getDescription().getCommands();
+        getServer().getPluginManager().registerEvents(this.fm, this);
     }
    
     @EventHandler
@@ -42,4 +39,4 @@ public class FireworksEx extends JavaPlugin implements Listener {
     	return(this.fm.onCommand(sender, cmd, label, args));
     }
     
-} 
+}

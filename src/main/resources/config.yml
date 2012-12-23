@@ -1,5 +1,5 @@
 join-firework:
-    # Delay in milliseconds
-    delay: 1000
+    # Delay in ticks (1s = 20 ticks at max. TPS)
+    delay: 40
     #TODO
     check-permission: false
