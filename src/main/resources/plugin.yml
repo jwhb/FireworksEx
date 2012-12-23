@@ -1,0 +1,12 @@
+name: FireworksEx
+description: May come later
+author: JWhy
+main: de.jwhy.fireworksex.FireworksEx
+url: http://bukkit.jwhy.de/plugins/fireworksex
+version: '0.1'
+commands:
+   fwltest:
+      description: Test FireworksEx
+      usage: /<command>
+      permission: <plugin name>.fwltest
+      permission-message: You don't have <permission>
