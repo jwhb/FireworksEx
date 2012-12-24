@@ -19,13 +19,13 @@ import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.inventory.meta.FireworkMeta;
 import org.bukkit.plugin.Plugin;
 
-public class FireworkManager implements Listener {
+public class FireworkHandler implements Listener {
 
 	private Plugin plugin;
 	private Logger logger;
 	private Configuration config;
 
-	public FireworkManager(Plugin plugin, Configuration config) {
+	public FireworkHandler(Plugin plugin, Configuration config) {
 		this.plugin = plugin;
 		this.logger = plugin.getLogger();
 		if (config != null) {
@@ -73,6 +73,7 @@ public class FireworkManager implements Listener {
 		fweb.trail(true);
 		fweb.flicker(true);
 		fweb.withColor(Color.FUCHSIA);
+		fweb.with(FireworkEffect.Type.CREEPER);
 		fwmeta.addEffect(fweb.build());
 		fw.setFireworkMeta(fwmeta);
 	}

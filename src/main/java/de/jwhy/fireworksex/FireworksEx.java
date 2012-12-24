@@ -13,7 +13,7 @@ public class FireworksEx extends JavaPlugin implements Listener {
 	
 	private File configFile;
 	public FileConfiguration config;
-	private FireworkManager fm;
+	private FireworkHandler fm;
 
     public void onDisable() {
     	
@@ -27,7 +27,7 @@ public class FireworksEx extends JavaPlugin implements Listener {
         FireworksExUtils.loadConfigs(configFile, config);
         
         //Initialize FireworkManager instance
-        this.fm = new FireworkManager(this, config);
+        this.fm = new FireworkHandler(this, config);
         
         //Register events
         	//Map<String, Map<String, Object>> commands = this.getDescription().getCommands();
