@@ -35,6 +35,6 @@
     </dependencies>
     <ciManagement>
     	<system>jenkins</system>
-    	<url>http://ci.jwhy.de/job/${project.name}</url>
+    	<url>http://ci.jwhy.de/job/FireworksEx/</url>
     </ciManagement>
 </project>

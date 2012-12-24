@@ -6,9 +6,9 @@ join-firework:
     check-permission: false
     firework-style: 'myfirework'
 styles:
-    # color: BLACK, SILVER, GRAY, WHITE, MAROON, RED, PURPLE, FUCHSIA, 
-    #        GREEN, LIME, OLIVE, YELLOW, NAVY, BLUE, TEAL, AQUA
-    # shape: BALL, BALL_LARGE, BURST, CREEPER, STAR
+    # color: BLACK, SILVER, GRAY, WHITE, MAROON, RED, PURPLE, FUCHSIA, GREEN,
+    #        LIME, OLIVE, YELLOW, NAVY, BLUE, TEAL, AQUA or NONE (no explosion)
+    # shape: BALL, BALL_LARGE, BURST, CREEPER, STAR or none (no shape)
     # trail: true/false - Whether the firework leaves a trail (diamond effect)
     # power: Represents the amount of used gunpowder to modify the flight time
     myfirework:
@@ -16,9 +16,9 @@ styles:
         shape: CREEPER
         trail: true
         power: 3
-    olive:
-        color: OLIVE
-        shape: BALL_LARGE
+    defaultrocket:
+        color: NONE
+        shape: NONE
         trail: false
         power: 1
 system:
