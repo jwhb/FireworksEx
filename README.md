@@ -23,8 +23,10 @@ FireworksEx can cause a great welcoming for players that join and will allow you
 
 FireworksEx is very easy to be installed:
 
-Download latest FireworksEx.jar from [BukkitDev](http://dev.bukkit.org/server-mods/fireworksex/files/ "BukkitDev: FireworksEx Files") or [Jenkins](http://ci.jwhy.de/job/FireworksEx/de.jwhy.fireworksex$FireworksEx/ "Jenkins: FireworksEx") and move it into the "plugins" folder of your CraftBukkit installation. Once you restart or /reload the server, a configuration file will be created and the FireworksEx is ready for use.
+Download latest FireworksEx.jar from [BukkitDev](http://dev.bukkit.org/server-mods/fireworksex/files/ "BukkitDev: FireworksEx Files") or [Jenkins](http://bukkit.jwhy.de/plugins/fireworksex/.build/ "Jenkins: FireworksEx")* and move it into the "plugins" folder of your CraftBukkit installation. Once you restart or /reload the server, a configuration file will be created and the FireworksEx is ready for use.
 
 Now you can configure FireworksEx through it's config.yml, which is located at _bukkit/plugins/FireworksEx/config.yml_. The file is annotated and includes basic information on the different settings.<br>
 Do you need help with the configuration?
 [Configuration help](http://dev.bukkit.org/server-mods/fireworksex/pages/configuration/)
+
+*\* Development builds of this project can be acquired at the provided continuous integration server. These builds have not been approved by the BukkitDev staff. Use them at your own risk.*
