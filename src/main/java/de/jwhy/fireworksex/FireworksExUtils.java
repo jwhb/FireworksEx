@@ -5,8 +5,9 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.lang.reflect.Field;
 import java.util.logging.Level;
-
+import org.bukkit.Color;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.Plugin;
 
@@ -60,6 +61,23 @@ public class FireworksExUtils {
 	public static void runEmergency(Plugin plugin, String reason) {
 		plugin.getLogger().log(Level.SEVERE, "Disabling: " + reason);
 		plugin.getPluginLoader().disablePlugin(plugin);
+	}
+
+	public static Color getColor(String colorname) {
+		String cn = colorname.toUpperCase();
+		try {
+			Field cf = Color.class.getField(cn);
+			if(cf.getType().isAssignableFrom(Color.class)){
+				//Valid color
+				return((Color)(cf.get(null)));
+			}
+			return(null);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return(null);
+		}
+		
+		//return(null);
 	}
 
 }
