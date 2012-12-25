@@ -55,7 +55,6 @@ public class FireworkHandler implements Listener {
 			if (sender instanceof Player) {
 				if(sender.isOp()){
 					this.launchFirework((Player) sender);
-					FireworksExUtils.getColor("fuchsia");
 					return(true);
 				}else{
 					sender.sendMessage("You're not permitted to do that!");

@@ -20,8 +20,7 @@ public class FireworkManager {
 		if(section != null){
 			//Firework style in configuration
 			fs.color = FireworksExUtils.getColor(section.getString("color"));
-			//TODO: Get firework shape just like color
-			fs.shape = null; //section.getString("shape");
+			fs.shape = FireworksExUtils.getFireworkEffectType(section.getString("shape"));
 			//TODO: Document flicker in config.yml
 			fs.flicker = section.getBoolean("flicker", false);
 			fs.power = section.getLong("power");
