@@ -39,8 +39,6 @@ public class FireworkHandler implements Listener {
 	@EventHandler
 	public void onPlayerJoin(PlayerJoinEvent event) {
 		final Player player = event.getPlayer();
-		logger.log(Level.INFO, "Test: "+ (new Integer(config.getInt("join-firework.delay",
-			1000))).toString());
 		plugin.getServer().getScheduler()
 				.scheduleSyncDelayedTask(plugin, new Runnable() {
 					@Override
@@ -55,11 +53,17 @@ public class FireworkHandler implements Listener {
 			String[] args) {
 		if (cmd.getName().equalsIgnoreCase("fwltest")) {
 			if (sender instanceof Player) {
-				this.launchFirework((Player) sender);
-				return (true);
+				if(sender.isOp()){
+					this.launchFirework((Player) sender);
+					FireworksExUtils.getColor("fuchsia");
+					return(true);
+				}else{
+					sender.sendMessage("You're not permitted to do that!");
+					return(true);
+				}
 			}
-			this.logger.log(Level.WARNING,
-					"This command can be used by players only.");
+			sender.sendMessage("This command can be used by players only.");
+			return(true);
 		}
 		return (false);
 	}
