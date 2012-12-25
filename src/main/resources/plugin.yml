@@ -5,8 +5,9 @@ main: de.jwhy.fireworksex.FireworksEx
 url: http://bukkit.jwhy.de/plugins/fireworksex
 version: '0.1'
 commands:
-   fwltest:
-      description: Test FireworksEx
+    fireworksex:
+      description: FireworksEx base command
       usage: /<command>
       permission: <plugin name>.fwltest
       permission-message: You don't have <permission>
+      aliases: [fw, fwex, firework]

@@ -51,8 +51,9 @@ public class FireworkHandler implements Listener {
 
 	public boolean onCommand(CommandSender sender, Command cmd, String label,
 			String[] args) {
-		if (cmd.getName().equalsIgnoreCase("fwltest")) {
+		if (cmd.getName().equalsIgnoreCase("fireworksex")) {
 			if (sender instanceof Player) {
+				//TODO: Add permissions for /fireworksex
 				if(sender.isOp()){
 					this.launchFirework((Player) sender);
 					return(true);
