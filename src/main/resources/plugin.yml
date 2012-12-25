@@ -1,13 +1,78 @@
 name: FireworksEx
-description: May come later
+description: 'FireworksEx adds join-fireworks and custom firework spawning.'
 author: JWhy
 main: de.jwhy.fireworksex.FireworksEx
 url: http://bukkit.jwhy.de/plugins/fireworksex
-version: '0.1'
+version: '0.2'
 commands:
     fireworksex:
-      description: FireworksEx base command
-      usage: /<command>
-      permission: <plugin name>.fwltest
-      permission-message: You don't have <permission>
-      aliases: [fw, fwex, firework]
+        description: FireworksEx base command
+        usage: /<command>
+        aliases: [fw, fwex, firework]
+permissions:
+    fireworksex.*:
+        description: Gives access to all FireworksEx commands.
+        default: op
+        children:
+            fireworksex.spawn.*: true
+            fireworksex.color.*: true
+            fireworksex.shape.*: true
+            fireworksex.trail: true
+            fireworksex.flicker: true
+            fireworksex.power: true
+            
+    fireworksex.spawn.*:
+        description: Allows user to spawn fireworks.
+        default: op
+        children:
+            fireworksex.spawn.custom: true
+            fireworksex.spawn.id.*: true
+    fireworksex.spawn.custom:
+        description: Allows user to spawn custom fireworks.
+        default: op
+    fireworksex.spawn.id.*:
+        description: Allows user to spawn fireworks of the given id.
+        default: op
+            
+    fireworksex.color.*:
+        description: Allows user to set custom colors for fireworks.
+        default: op
+        children:
+            fireworksex.color.BLACK: true
+            fireworksex.color.SILVER: true
+            fireworksex.color.GRAY: true
+            fireworksex.color.WHITE: true
+            fireworksex.color.MAROON: true
+            fireworksex.color.RED: true
+            fireworksex.color.PURPLE: true
+            fireworksex.color.FUCHSIA: true
+            fireworksex.color.GREEN: true
+            fireworksex.color.LIME: true
+            fireworksex.color.OLIVE: true
+            fireworksex.color.YELLOW: true
+            fireworksex.color.NAVY: true
+            fireworksex.color.BLUE: true
+            fireworksex.color.TEAL: true
+            fireworksex.color.AQUA: true
+            
+    fireworksex.shape.*:
+        description: Allows user to set custom shapes for fireworks.
+        default: op
+        children:
+            fireworksex.shape.BALL: true
+            fireworksex.shape.BALL_LARGE: true
+            fireworksex.shape.BURST: true
+            fireworksex.shape.CREEPER: true
+            fireworksex.shape.STAR: true
+            
+    fireworksex.trail:
+        description: Allows user to set fireworks with trails.
+        default: op
+        
+    fireworksex.flicker:
+        description: Allows user to set fireworks with flicker.
+        default: op
+        
+    fireworksex.power:
+        description: Allows user to set fireworks with power unequal 1.
+        default: op
