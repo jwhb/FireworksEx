@@ -19,7 +19,7 @@ FireworksEx can cause a great welcoming for players that join and will allow you
  * Trail (Diamond effect)
  * Crackle (Glowstone dust effect)
 
-###Installation & Configuration###
+##Installation & Configuration##
 
 FireworksEx is very easy to be installed:
 
