@@ -3,7 +3,7 @@ description: 'FireworksEx adds join-fireworks and custom firework spawning.'
 author: JWhy
 main: de.jwhy.fireworksex.FireworksEx
 url: http://bukkit.jwhy.de/plugins/fireworksex
-version: '0.2'
+version: '0.3'
 commands:
     fireworksex:
         description: FireworksEx base command

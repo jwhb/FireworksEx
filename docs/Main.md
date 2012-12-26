@@ -8,10 +8,10 @@ FireworksEx can cause a great welcoming for players that join and will allow you
 **Fireworks on join**:<br>
  	Each time a player joins the plugin will release a firework at their location. The firework can be fully customized and is optionally restricted to users that have the correct permission.
 
- **Firework commands (todo)**:<br>
+ **Fireworks through command**:<br>
 	You can also spawn different fireworks using command. The firework's appearance can be customized using all styles as shown below.
 
-**All Firework styles**:
+**Possible Firework styles**:
 
  * Shape of the firework (Creeper, Nugget, Feather, etc.)
  * Color (Full RGB color spectrum)
