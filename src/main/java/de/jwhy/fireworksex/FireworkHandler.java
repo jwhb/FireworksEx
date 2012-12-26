@@ -4,6 +4,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import org.bukkit.Color;
+import org.bukkit.Effect;
 import org.bukkit.FireworkEffect;
 import org.bukkit.FireworkEffect.Builder;
 import org.bukkit.command.Command;
@@ -19,11 +20,14 @@ import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.inventory.meta.FireworkMeta;
 import org.bukkit.plugin.Plugin;
 
+import de.jwhy.fireworksex.model.FireworkJoinDelayTask;
+import de.jwhy.fireworksex.model.FireworkStyle;
+
 public class FireworkHandler implements Listener {
 
 	private Plugin plugin;
 	private Logger logger;
-	private Configuration config;
+	public Configuration config;
 
 	public FireworkHandler(Plugin plugin, Configuration config) {
 		this.plugin = plugin;
@@ -38,14 +42,12 @@ public class FireworkHandler implements Listener {
 
 	@EventHandler
 	public void onPlayerJoin(PlayerJoinEvent event) {
-		final Player player = event.getPlayer();
-		plugin.getServer().getScheduler()
-				.scheduleSyncDelayedTask(plugin, new Runnable() {
-					@Override
-					public void run() {
-						launchFirework(player);
-					}
-				}, (long) config.getInt("join-firework.delay", 40));
+		Player player = event.getPlayer();
+		String jf = FireworkHandler.this.config.getString("join-firework.firework-style", "join");
+		FireworkStyle style = FireworkManager.getFireworkStyle(jf, config);
+		plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, 
+				new	FireworkJoinDelayTask(player, style, this), (long) config.getInt("join-firework.delay", 40)
+		);
 
 	}
 
@@ -53,9 +55,18 @@ public class FireworkHandler implements Listener {
 			String[] args) {
 		if (cmd.getName().equalsIgnoreCase("fireworksex")) {
 			if (sender instanceof Player) {
-				//TODO: Add permissions for /fireworksex
+				//TODO: Add permissions
 				if(sender.isOp()){
-					this.launchFirework((Player) sender);
+					switch(args.length){
+					case 0:
+						//TODO: Insert help here
+						sender.sendMessage("Hello, I'm the help.");
+						break;
+					case 1:
+						this.launchFirework((Player) sender, FireworkManager.getFireworkStyle(args[0], config));
+						break;
+					}
+
 					return(true);
 				}else{
 					sender.sendMessage("You're not permitted to do that!");
@@ -68,18 +79,22 @@ public class FireworkHandler implements Listener {
 		return (false);
 	}
 
-	public void launchFirework(Player player) {
-		Firework fw = (Firework) player.getWorld().spawnEntity(
-				player.getLocation(), EntityType.FIREWORK);
+	public void launchFirework(Player player, FireworkStyle style) {
+		Firework fw = (Firework) player.getWorld().spawnEntity(player.getLocation(), EntityType.FIREWORK);
+		FireworkHandler.applyStyle(fw, style);
+	}
+
+	public static Firework applyStyle(Firework fw, FireworkStyle style) {
 		FireworkMeta fwmeta = fw.getFireworkMeta();
-		fwmeta.setPower(4);
+		fwmeta.setPower(style.power);
 		Builder fweb = FireworkEffect.builder();
-		fweb.trail(true);
-		fweb.flicker(true);
-		fweb.withColor(Color.FUCHSIA);
-		fweb.with(FireworkEffect.Type.CREEPER);
+			fweb.withColor(style.color);
+			fweb.with(style.shape);
+			fweb.trail(style.trail);
+			fweb.flicker(style.flicker);
 		fwmeta.addEffect(fweb.build());
 		fw.setFireworkMeta(fwmeta);
+		return(fw);
 	}
 
 }
