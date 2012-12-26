@@ -58,12 +58,13 @@ public class FireworkHandler implements Listener {
 				//TODO: Add permissions
 				if(sender.isOp()){
 					switch(args.length){
-					case 0:
-						//TODO: Insert help here
-						sender.sendMessage("Hello, I'm the help.");
-						break;
-					case 1:
-						this.launchFirework((Player) sender, FireworkManager.getFireworkStyle(args[0], config));
+					case 2:
+						if(args[0].equalsIgnoreCase("s") || args[0].equalsIgnoreCase("shoot")){
+							this.launchFirework((Player) sender, args[1]);
+							break;
+						}
+					default:
+						sender.sendMessage(FireworksExHelp.getNoArgsHelp(label));
 						break;
 					}
 
@@ -82,6 +83,10 @@ public class FireworkHandler implements Listener {
 	public void launchFirework(Player player, FireworkStyle style) {
 		Firework fw = (Firework) player.getWorld().spawnEntity(player.getLocation(), EntityType.FIREWORK);
 		FireworkHandler.applyStyle(fw, style);
+	}
+	
+	public void launchFirework(Player player, String style) {
+		this.launchFirework(player, FireworkManager.getFireworkStyle(style, this.config));
 	}
 
 	public static Firework applyStyle(Firework fw, FireworkStyle style) {
