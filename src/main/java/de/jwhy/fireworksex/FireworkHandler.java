@@ -46,17 +46,17 @@ public class FireworkHandler implements Listener {
 		Player player = event.getPlayer();
 
 		List<String> jfw_styles = null;
-		if (config.isList("join-firework.firework-style")) {
-			jfw_styles = config.getStringList("join-firework.firework-style");
+		if (config.isList("join-firework.fireworks")) {
+			jfw_styles = config.getStringList("join-firework.fireworks");
 		} else {
 			jfw_styles = new ArrayList<String>();
-			jfw_styles.add(config.getString("join-firework.firework-style",
+			jfw_styles.add(config.getString("join-firework.fireworks",
 					"join"));
 		}
 
 		BukkitScheduler scheduler = plugin.getServer().getScheduler();
 		for (String jfw_style : jfw_styles) {
-			long delay = config.getLong("join-firework.delay", 40);
+			long delay = (long) (20 *config.getDouble("join-firework.delay", 40));
 			FireworkStyle style = FireworkManager.getFireworkStyle(jfw_style,
 					config);
 			scheduler.scheduleSyncDelayedTask(plugin,

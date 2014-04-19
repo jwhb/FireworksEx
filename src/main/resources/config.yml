@@ -1,34 +1,26 @@
 join-firework:
-    # delay: Delay in ticks (1s = 20 ticks at max. TPS)
-    # check-permission: Only allow join firework for players with permission
+    # delay: Delay in seconds
     # firework-style: Default firework style for join firework
-    delay: 40
-    check-permission: false
-    firework-style: 'myfirework'
+    delay: 2
+    fireworks: 'spawn'
 styles:
     # color: BLACK, SILVER, GRAY, WHITE, MAROON, RED, PURPLE, FUCHSIA, GREEN,
     #        LIME, OLIVE, YELLOW, NAVY, BLUE, TEAL, AQUA or NONE (no explosion)
     # shape: BALL, BALL_LARGE, BURST, CREEPER, STAR or none (no shape)
     # trail: true/false - Whether the firework leaves a trail (diamond effect)
     # power: Represents the amount of used gunpowder to modify the flight time
-    myfirework:
+    spawn:
         color: GREEN
         shape: CREEPER
         trail: true
-        power: 3
+        power: 1
     christmas:
         color: RED
         shape: BALL_LARGE
         trail: true
         power: 2
-miscellanious:
-    defaults:
-        color: RED
-        shape: NONE
-        trail: false
-        power: 1
 system:
     # Will probably spam your console
     debug: false
     # Don't touch this or ninjas will inhibit your fridge!
-    config: '0.3'
+    config: '0.3.1'
