@@ -1,5 +1,7 @@
 package de.jwhy.fireworksex;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -17,6 +19,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.inventory.meta.FireworkMeta;
 import org.bukkit.plugin.Plugin;
+import org.bukkit.scheduler.BukkitScheduler;
 
 import de.jwhy.fireworksex.model.FireworkJoinDelayTask;
 import de.jwhy.fireworksex.model.FireworkStyle;
@@ -41,14 +44,25 @@ public class FireworkHandler implements Listener {
 	@EventHandler
 	public void onPlayerJoin(PlayerJoinEvent event) {
 		Player player = event.getPlayer();
-		String jf = FireworkHandler.this.config.getString(
-				"join-firework.firework-style", "join");
-		FireworkStyle style = FireworkManager.getFireworkStyle(jf, config);
-		plugin.getServer()
-				.getScheduler()
-				.scheduleSyncDelayedTask(plugin,
-						new FireworkJoinDelayTask(player, style, this),
-						(long) config.getInt("join-firework.delay", 40));
+
+		List<String> jfw_styles = null;
+		if (config.isList("join-firework.firework-style")) {
+			jfw_styles = config.getStringList("join-firework.firework-style");
+		} else {
+			jfw_styles = new ArrayList<String>();
+			jfw_styles.add(config.getString("join-firework.firework-style",
+					"join"));
+		}
+
+		BukkitScheduler scheduler = plugin.getServer().getScheduler();
+		for (String jfw_style : jfw_styles) {
+			long delay = config.getLong("join-firework.delay", 40);
+			FireworkStyle style = FireworkManager.getFireworkStyle(jfw_style,
+					config);
+			scheduler.scheduleSyncDelayedTask(plugin,
+					new FireworkJoinDelayTask(player, style, this), delay);
+
+		}
 
 	}
 

@@ -8,7 +8,7 @@ import org.bukkit.plugin.Plugin;
 import de.jwhy.fireworksex.model.FireworkStyle;
 
 public class FireworkManager {
-	
+
 	private Configuration config;
 
 	public FireworkManager(Plugin plugin, Configuration config) {
