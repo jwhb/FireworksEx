@@ -3,8 +3,6 @@ package de.jwhy.fireworksex;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import org.bukkit.Color;
-import org.bukkit.Effect;
 import org.bukkit.FireworkEffect;
 import org.bukkit.FireworkEffect.Builder;
 import org.bukkit.command.Command;
@@ -43,11 +41,14 @@ public class FireworkHandler implements Listener {
 	@EventHandler
 	public void onPlayerJoin(PlayerJoinEvent event) {
 		Player player = event.getPlayer();
-		String jf = FireworkHandler.this.config.getString("join-firework.firework-style", "join");
+		String jf = FireworkHandler.this.config.getString(
+				"join-firework.firework-style", "join");
 		FireworkStyle style = FireworkManager.getFireworkStyle(jf, config);
-		plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, 
-				new	FireworkJoinDelayTask(player, style, this), (long) config.getInt("join-firework.delay", 40)
-		);
+		plugin.getServer()
+				.getScheduler()
+				.scheduleSyncDelayedTask(plugin,
+						new FireworkJoinDelayTask(player, style, this),
+						(long) config.getInt("join-firework.delay", 40));
 
 	}
 
@@ -55,11 +56,12 @@ public class FireworkHandler implements Listener {
 			String[] args) {
 		if (cmd.getName().equalsIgnoreCase("fireworksex")) {
 			if (sender instanceof Player) {
-				//TODO: Add permissions
-				if(sender.isOp()){
-					switch(args.length){
+				// TODO: Add permissions
+				if (sender.isOp()) {
+					switch (args.length) {
 					case 2:
-						if(args[0].equalsIgnoreCase("s") || args[0].equalsIgnoreCase("shoot")){
+						if (args[0].equalsIgnoreCase("s")
+								|| args[0].equalsIgnoreCase("shoot")) {
 							this.launchFirework((Player) sender, args[1]);
 							break;
 						}
@@ -68,38 +70,40 @@ public class FireworkHandler implements Listener {
 						break;
 					}
 
-					return(true);
-				}else{
+					return (true);
+				} else {
 					sender.sendMessage("You're not permitted to do that!");
-					return(true);
+					return (true);
 				}
 			}
 			sender.sendMessage("This command can be used by players only.");
-			return(true);
+			return (true);
 		}
 		return (false);
 	}
 
 	public void launchFirework(Player player, FireworkStyle style) {
-		Firework fw = (Firework) player.getWorld().spawnEntity(player.getLocation(), EntityType.FIREWORK);
+		Firework fw = (Firework) player.getWorld().spawnEntity(
+				player.getLocation(), EntityType.FIREWORK);
 		FireworkHandler.applyStyle(fw, style);
 	}
-	
+
 	public void launchFirework(Player player, String style) {
-		this.launchFirework(player, FireworkManager.getFireworkStyle(style, this.config));
+		this.launchFirework(player,
+				FireworkManager.getFireworkStyle(style, this.config));
 	}
 
 	public static Firework applyStyle(Firework fw, FireworkStyle style) {
 		FireworkMeta fwmeta = fw.getFireworkMeta();
 		fwmeta.setPower(style.power);
 		Builder fweb = FireworkEffect.builder();
-			fweb.withColor(style.color);
-			fweb.with(style.shape);
-			fweb.trail(style.trail);
-			fweb.flicker(style.flicker);
+		fweb.withColor(style.color);
+		fweb.with(style.shape);
+		fweb.trail(style.trail);
+		fweb.flicker(style.flicker);
 		fwmeta.addEffect(fweb.build());
 		fw.setFireworkMeta(fwmeta);
-		return(fw);
+		return (fw);
 	}
 
 }

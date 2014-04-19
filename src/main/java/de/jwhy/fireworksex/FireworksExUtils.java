@@ -7,6 +7,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.lang.reflect.Field;
 import java.util.logging.Level;
+
 import org.bukkit.Color;
 import org.bukkit.FireworkEffect;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -68,29 +69,29 @@ public class FireworksExUtils {
 		String cn = colorname.toUpperCase();
 		try {
 			Field cf = Color.class.getField(cn);
-			if(cf.getType().isAssignableFrom(Color.class)){
-				//Valid color
-				return((Color)(cf.get(null)));
+			if (cf.getType().isAssignableFrom(Color.class)) {
+				// Valid color
+				return ((Color) (cf.get(null)));
 			}
-			return(null);
+			return (null);
 		} catch (Exception e) {
 			e.printStackTrace();
-			return(null);
+			return (null);
 		}
 	}
-	
+
 	public static FireworkEffect.Type getFireworkEffectType(String effectname) {
 		String en = effectname.toUpperCase();
 		try {
 			Field ef = FireworkEffect.Type.class.getField(en);
-			if(ef.getType().isAssignableFrom(FireworkEffect.Type.class)){
-				//Valid color
-				return((FireworkEffect.Type)(ef.get(null)));
+			if (ef.getType().isAssignableFrom(FireworkEffect.Type.class)) {
+				// Valid color
+				return ((FireworkEffect.Type) (ef.get(null)));
 			}
-			return(null);
+			return (null);
 		} catch (Exception e) {
 			e.printStackTrace();
-			return(null);
+			return (null);
 		}
 	}
 
