@@ -23,4 +23,4 @@ system:
     # Will probably spam your console
     debug: false
     # Don't touch this or ninjas will inhibit your fridge!
-    config: '0.3.1'
+    config: '0.4'
