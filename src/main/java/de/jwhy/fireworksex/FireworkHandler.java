@@ -2,68 +2,47 @@ package de.jwhy.fireworksex;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
-import org.bukkit.FireworkEffect;
-import org.bukkit.FireworkEffect.Builder;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.Configuration;
-import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Firework;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
-import org.bukkit.inventory.meta.FireworkMeta;
 import org.bukkit.plugin.Plugin;
-import org.bukkit.scheduler.BukkitScheduler;
 
-import de.jwhy.fireworksex.model.FireworkJoinDelayTask;
+import de.jwhy.fireworksex.model.FireworkLaunchAtPlayerTask;
 import de.jwhy.fireworksex.model.FireworkStyle;
 
 public class FireworkHandler implements Listener {
 
+	private Configuration cfg;
 	private Plugin plugin;
-	private Logger logger;
-	public Configuration config;
 
-	public FireworkHandler(Plugin plugin, Configuration config) {
+	public FireworkHandler(Plugin plugin, Configuration cfg) {
 		this.plugin = plugin;
-		this.logger = plugin.getLogger();
-		if (config != null) {
-			this.config = config;
-		} else {
-			this.logger.log(Level.WARNING, "Could not obtain configuration.");
-			this.config = new YamlConfiguration();
-		}
+		this.cfg = cfg;
 	}
 
 	@EventHandler
 	public void onPlayerJoin(PlayerJoinEvent event) {
 		Player player = event.getPlayer();
 
-		List<String> jfw_styles = null;
-		if (config.isList("join-firework.fireworks")) {
-			jfw_styles = config.getStringList("join-firework.fireworks");
-		} else {
-			jfw_styles = new ArrayList<String>();
-			jfw_styles.add(config.getString("join-firework.fireworks",
-					"join"));
+		List<String> fw_styles = null;
+
+		String node = "join-firework.fireworks";
+		if (cfg.isList(node)) {
+			fw_styles = cfg.getStringList(node);
+		}else{
+			fw_styles = new ArrayList<String>();
+			fw_styles.add(cfg.getString(node));
 		}
-
-		BukkitScheduler scheduler = plugin.getServer().getScheduler();
-		for (String jfw_style : jfw_styles) {
-			long delay = (long) (20 *config.getDouble("join-firework.delay", 40));
-			FireworkStyle style = FireworkManager.getFireworkStyle(jfw_style,
-					config);
-			scheduler.scheduleSyncDelayedTask(plugin,
-					new FireworkJoinDelayTask(player, style, this), delay);
-
+		for (String fw_style : fw_styles) {
+			this.launchFirework(player, fw_style, 0);
 		}
-
 	}
 
 	public boolean onCommand(CommandSender sender, Command cmd, String label,
@@ -76,7 +55,7 @@ public class FireworkHandler implements Listener {
 					case 2:
 						if (args[0].equalsIgnoreCase("s")
 								|| args[0].equalsIgnoreCase("shoot")) {
-							this.launchFirework((Player) sender, args[1]);
+							this.launchFirework((Player) sender, args[1], 0);
 							break;
 						}
 					default:
@@ -96,28 +75,20 @@ public class FireworkHandler implements Listener {
 		return (false);
 	}
 
-	public void launchFirework(Player player, FireworkStyle style) {
-		Firework fw = (Firework) player.getWorld().spawnEntity(
-				player.getLocation(), EntityType.FIREWORK);
-		FireworkHandler.applyStyle(fw, style);
+	public void launchFirework(Player player, FireworkStyle style, int delay) {
+		if (delay == 0) {
+			Firework fw = (Firework) player.getWorld().spawnEntity(
+					player.getLocation(), EntityType.FIREWORK);
+			FireworkManager.applyStyle(fw, style);
+		} else {
+			new FireworkLaunchAtPlayerTask(player, style, this);
+		}
 	}
 
-	public void launchFirework(Player player, String style) {
-		this.launchFirework(player,
-				FireworkManager.getFireworkStyle(style, this.config));
-	}
-
-	public static Firework applyStyle(Firework fw, FireworkStyle style) {
-		FireworkMeta fwmeta = fw.getFireworkMeta();
-		fwmeta.setPower(style.power);
-		Builder fweb = FireworkEffect.builder();
-		fweb.withColor(style.color);
-		fweb.with(style.shape);
-		fweb.trail(style.trail);
-		fweb.flicker(style.flicker);
-		fwmeta.addEffect(fweb.build());
-		fw.setFireworkMeta(fwmeta);
-		return (fw);
+	public void launchFirework(Player player, String style, int delay) {
+		FireworkStyle fw_style = FireworkManager.getFireworkStyle(style,
+				this.cfg);
+		launchFirework(player, fw_style, 0);
 	}
 
 }

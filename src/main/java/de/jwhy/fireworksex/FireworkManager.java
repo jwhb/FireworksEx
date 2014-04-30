@@ -1,8 +1,12 @@
 package de.jwhy.fireworksex;
 
+import org.bukkit.FireworkEffect;
+import org.bukkit.FireworkEffect.Builder;
 import org.bukkit.FireworkEffect.Type;
 import org.bukkit.configuration.Configuration;
 import org.bukkit.configuration.ConfigurationSection;
+import org.bukkit.entity.Firework;
+import org.bukkit.inventory.meta.FireworkMeta;
 import org.bukkit.plugin.Plugin;
 
 import de.jwhy.fireworksex.model.FireworkStyle;
@@ -37,6 +41,19 @@ public class FireworkManager {
 
 	public FireworkStyle getFireworkStyle(String string) {
 		return (getFireworkStyle(string, this.config));
+	}
+
+	public static Firework applyStyle(Firework fw, FireworkStyle style) {
+		FireworkMeta fwmeta = fw.getFireworkMeta();
+		fwmeta.setPower(style.power);
+		Builder fweb = FireworkEffect.builder();
+		fweb.withColor(style.color);
+		fweb.with(style.shape);
+		fweb.trail(style.trail);
+		fweb.flicker(style.flicker);
+		fwmeta.addEffect(fweb.build());
+		fw.setFireworkMeta(fwmeta);
+		return (fw);
 	}
 
 }

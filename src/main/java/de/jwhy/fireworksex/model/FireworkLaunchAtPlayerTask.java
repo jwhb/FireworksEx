@@ -4,13 +4,13 @@ import org.bukkit.entity.Player;
 
 import de.jwhy.fireworksex.FireworkHandler;
 
-public class FireworkJoinDelayTask implements Runnable {
+public class FireworkLaunchAtPlayerTask implements Runnable {
 
 	private FireworkHandler fh;
 	private Player player;
 	private FireworkStyle style;
 
-	public FireworkJoinDelayTask(Player player, FireworkStyle style,
+	public FireworkLaunchAtPlayerTask(Player player, FireworkStyle style,
 			FireworkHandler fh) {
 		this.fh = fh;
 		this.player = player;
@@ -19,7 +19,7 @@ public class FireworkJoinDelayTask implements Runnable {
 
 	@Override
 	public void run() {
-		this.fh.launchFirework(player, style);
+		this.fh.launchFirework(player, style, 0);
 	}
 
 }
