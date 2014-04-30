@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>de.jwhy.fireworksex</groupId>
 	<artifactId>FireworksEx</artifactId>
-	<version>0.4</version>
+	<version>0.4.1</version>
 	<name>FireworksEx</name>
 	<url>http://bukkit.jwhy.de/plugins/fireworksex</url>
 	<repositories>
@@ -34,8 +34,4 @@
 			<scope>compile</scope>
 		</dependency>
 	</dependencies>
-	<ciManagement>
-		<system>jenkins</system>
-		<url>http://ci.jwhy.de/job/FireworksEx/</url>
-	</ciManagement>
 </project>
